@@ -104,8 +104,10 @@ wss.on("connection",function(ws){
      *
      */
     ws.on("message",function(msg){
-        console.log("connection");
+
         var data = JSON.parse(msg);
+        var index = 0;
+
         console.log(msg);
         /**
          * Match id w/ the list of registered connections
@@ -115,6 +117,7 @@ wss.on("connection",function(ws){
         for(var i = 0;i<numconnections;++i){
             if(connections[i].id === data.id){
                 user_exists = true;
+                index = i;
             }
         }
 
@@ -133,31 +136,21 @@ wss.on("connection",function(ws){
                 */
                 case Events.DELETE_MSG:
                     //de-register user from list of current connections
-                    for(var i = 0;i<numconnections;++i){
-                        if(connections[i].id === data.event.value){
-                            connections.splice(i,1);
-                        }
-                    }
+                    connections.splice(index,1);
                     break;
                /**
                 * When we get new information about the hands.
                 */
                 case Events.NEW_HAND_POS:
-                    for(var i = 0;i<numconnections;++i){
-                        if(connections[i].id === data.event.value){
-                            connections[i].currentHandPosition = JSON.parse(data.handpos);
-                        }
-                    }
+                    connections[index].currentHandPosition = JSON.parse(data.handpos);
                     break;
                /**
                 * When we get new information about the head
                 */
                 case Events.NEW_HEAD_POS:
-                    for(var i = 0;i<numconnections;++i){
-                        if(connections[i].id === data.event.value){
-                            connections[i].currentHeadPosition = JSON.parse(data.headpos);
-                        }
-                    }
+
+                            connections[index].currentHeadPosition = JSON.parse(data.headpos);
+
                     break;
             }
 
