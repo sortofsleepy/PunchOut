@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.playbook.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience. Why not upgrade, it costs zero dollars</p>
+<![endif]-->
+
+
+<script type="text/javascript" src="SocketClient.js"></script>
+
+
+<script>
+    var id = 0;
+var client = new SocketClient({
+    port:8000,
+    callbacks:{
+        onmessage:function(msg){
+            id = msg.data.split(":")[1];
+        }
+    }
+});
+    client.init();
+
+    window.addEventListener("keydown",function(){
+        client.socket.send("test from " + id);
+    })
+    draw();
+    function draw(){
+        window.requestAnimationFrame(draw);
+    }
+
+
+    function sendDeleteMessage(){
+        var string = {
+            id:id,
+            event:{
+                type:"delete",
+                value:false
+            }
+        }
+
+        client.socket.send(JSON.stringify(string));
+    }
+
+</script>
+</body>
+</html>

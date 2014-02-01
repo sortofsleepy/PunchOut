@@ -1,0 +1,12 @@
+{
+    "name": "PunchOut",
+    "version": "0.0.1",
+    "dependencies": {
+        "winston":"*",
+        "flatiron":"*",
+        "union":"*",
+        "connect":"*",
+        "ws":"*",
+        "firebase":"*"
+    }
+}

@@ -1,3 +1,9 @@
+PunchOutServer/.DS_Store
+PunchOutServer/node_modules/
+.DS_Store
+LeapSDK/
+xcode/build/
+
 # Compiled Object files
 *.slo
 *.lo
