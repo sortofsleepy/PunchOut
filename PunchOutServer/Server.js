@@ -111,13 +111,14 @@ wss.on("connection",function(ws){
         var user_exists = false;
         var numconnections = connections.length;
         for(var i = 0;i<numconnections;++i){
-            if(connections[i].id === data.id){
+            if(connections[i].id === parseInt(data.id)){
                 user_exists = true;
                 index = i;
             }
         }
 
         if(user_exists){
+
             /**
              * Figure out what kind of data we're getting
              */
@@ -139,7 +140,7 @@ wss.on("connection",function(ws){
                 * When we get new information about the hands.
                 */
                 case Events.NEW_HAND_POS:
-                    connections[index].currentHandPosition = JSON.parse(data.handpos);
+                    connections[index].currentHandPosition = data.event.value;
                     notifyUpdate();
                     break;
                /**
@@ -147,37 +148,42 @@ wss.on("connection",function(ws){
                 */
                 case Events.NEW_HEAD_POS:
 
-                    connections[index].currentHeadPosition = JSON.parse(data.headpos);
+                    connections[index].currentHeadPosition = data.event.value;
                     notifyUpdate();
                     break;
             }
 
+        }else{
+            console.log("user does not exist")
+        }
+
+
+        /**
+         * This will broadcast to all players that a update has taken place.
+         * The id of the opposite player will be sent so that the current player
+         * can update their display.
+         */
+        function notifyUpdate(){
+            var update = {}
+            //get the opponent's id
+            for(var i = 0;i<connections.length;++i){
+                /**
+                 *  Look for the player opposite that of the one
+                 *  sending the ID.
+                 */
+
+                if(i !== index){
+                    update["id"] = i;
+                    update["event"] = "opponentupdate";
+                    update["data"] = connections[index];
+                }
+            }
+            console.log("Notifying opponent of " + JSON.stringify(update));
+            ws.send(JSON.stringify(update));
         }
     });
 
-    /**
-     * This will broadcast to all players that a update has taken place.
-     * The id of the opposite player will be sent so that the current player
-     * can update their display.
-     */
-    function notifyUpdate(){
-        var update = {}
-        //get the opponent's id
-        for(var i = 0;i<connections.length;++i){
-            /**
-             *  Look for the player opposite that of the one
-             *  sending the ID.
-             */
 
-            if(i !== index){
-                update["id"] = i;
-                update["event"] = "opponentupdate";
-                update["data"] = connections[i];
-            }
-        }
-
-        ws.write(JSON.stringify(update));
-    }
 
 
 

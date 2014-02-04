@@ -12,7 +12,7 @@ var client = new SocketClient({
 
             if(msg.hasOwnProperty("event")){
                 if(msg.event === "opponentupdate"){
-                    
+                    console.log(msg);
                 }
             }
         }
@@ -54,6 +54,15 @@ void draw(){
     fill(r,g,b);
     ellipse(x,y,20,20);
 }
+
+
+window.addEventListener("keydown",function(e){
+    if(e.keyCode === 77){
+        client.socket.send(JSON.stringify({
+
+        }))
+    }
+})
 
 
 window.addEventListener("mousemove",function(e){
