@@ -45,7 +45,7 @@ wss.on("connection",function(ws){
     /**
      * Just two player for now.
      */
-    if(connections.length < 2){
+   // if(connections.length < 2){
 
 
        //make a user object
@@ -60,13 +60,10 @@ wss.on("connection",function(ws){
 
        //add to list of users
         connections.push(user);
-
-
-
         ws.send(JSON.stringify({"userid":user.id}));
 
 
-    }
+    //}
 
 
     /**
@@ -108,7 +105,6 @@ wss.on("connection",function(ws){
         var data = JSON.parse(msg);
         var index = 0;
 
-        console.log(msg);
         /**
          * Match id w/ the list of registered connections
          */
@@ -137,28 +133,51 @@ wss.on("connection",function(ws){
                 case Events.DELETE_MSG:
                     //de-register user from list of current connections
                     connections.splice(index,1);
+                    notifyUpdate();
                     break;
                /**
                 * When we get new information about the hands.
                 */
                 case Events.NEW_HAND_POS:
                     connections[index].currentHandPosition = JSON.parse(data.handpos);
+                    notifyUpdate();
                     break;
                /**
                 * When we get new information about the head
                 */
                 case Events.NEW_HEAD_POS:
 
-                            connections[index].currentHeadPosition = JSON.parse(data.headpos);
-
+                    connections[index].currentHeadPosition = JSON.parse(data.headpos);
+                    notifyUpdate();
                     break;
             }
 
         }
     });
 
+    /**
+     * This will broadcast to all players that a update has taken place.
+     * The id of the opposite player will be sent so that the current player
+     * can update their display.
+     */
+    function notifyUpdate(){
+        var update = {}
+        //get the opponent's id
+        for(var i = 0;i<connections.length;++i){
+            /**
+             *  Look for the player opposite that of the one
+             *  sending the ID.
+             */
 
+            if(i !== index){
+                update["id"] = i;
+                update["event"] = "opponentupdate";
+                update["data"] = connections[i];
+            }
+        }
 
+        ws.write(JSON.stringify(update));
+    }
 
 
 
