@@ -41,7 +41,7 @@ var Events = {
 }
 
 wss.on("connection",function(ws){
-
+    var index = 0;
     /**
      * Just two player for now.
      */
@@ -103,7 +103,7 @@ wss.on("connection",function(ws){
     ws.on("message",function(msg){
 
         var data = JSON.parse(msg);
-        var index = 0;
+
 
         /**
          * Match id w/ the list of registered connections
@@ -158,32 +158,40 @@ wss.on("connection",function(ws){
         }
 
 
-        /**
-         * This will broadcast to all players that a update has taken place.
-         * The id of the opposite player will be sent so that the current player
-         * can update their display.
-         */
-        function notifyUpdate(){
-            var update = {}
-            //get the opponent's id
-            for(var i = 0;i<connections.length;++i){
-                /**
-                 *  Look for the player opposite that of the one
-                 *  sending the ID.
-                 */
 
-                if(i !== index){
-                    update["id"] = i;
-                    update["event"] = "opponentupdate";
-                    update["data"] = connections[index];
-                }
-            }
-            console.log("Notifying opponent of " + JSON.stringify(update));
-            ws.send(JSON.stringify(update));
-        }
     });
 
+    setInterval(function(){
+        notifyUpdate();
+    },40);
 
+    /**
+     * This will broadcast to all players that a update has taken place.
+     * The id of the opposite player will be sent so that that player can
+     * update their display.
+     */
+    function notifyUpdate(){
+        var update = {}
+        //get the opponent's id
+        for(var i = 0;i<connections.length;++i){
+            /**
+             *  Look for the player opposite that of the one
+             *  sending the ID.
+             */
+
+            if(connections[i].id !== connections[index].id){
+                console.log("Opposite found");
+                console.log("This id :" + connections[i].id);
+                console.log("other id:" + connections[index].id);
+
+                update["id"] = connections[index].id;
+                update["event"] = "opponentupdate";
+                update["data"] = connections[i];
+            }
+        }
+        console.log("Notifying opponent of " + JSON.stringify(update));
+        ws.send(JSON.stringify(update));
+    }
 
 
 

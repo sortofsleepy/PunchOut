@@ -1,4 +1,10 @@
+var x = window.innerWidth / 2;
+var y = window.innerHeight / 2;
+
+float r,g,b,dx,dy;
 var opponent = {};
+
+var debug = false;
 
 var client = new SocketClient({
     port:8000,
@@ -10,11 +16,29 @@ var client = new SocketClient({
                 localStorage.setItem("userid",msg.userid);
             }
 
-            if(msg.hasOwnProperty("event")){
-                if(msg.event === "opponentupdate"){
-                    console.log(msg);
-                }
+
+            if(msg.event === "opponentupdate"){
+                var clientid = parseInt(localStorage.getItem("userid"));
+                console.log("Client is :" + clientid + " Msg is :" + msg.id);
+               if(msg.id === clientid){
+                   console.log(msg);
+                   /*dx = mouseX - msg.data.currentHeadPosition.x;
+                    dy = mouseY - msg.data.currentHeadPosition.y;
+
+                    x += dx * 0.05;
+                    y += dy * 0.05;*/
+
+                  if(!debug){
+                      x = msg.data.currentHeadPosition.x;
+                      y = msg.data.currentHeadPosition.y;
+
+                  }
+
+               }else{
+                   console.log("nomatch");
+               }
             }
+
         }
     }
 });
@@ -22,10 +46,6 @@ client.init();
 
 
 
-var x = window.innerWidth / 2;
-var y = window.innerHeight / 2;
-
-float r,g,b;
 void setup(){
     size(window.innerWidth,window.innerHeight);
     background(200);
@@ -39,16 +59,29 @@ void setup(){
 void draw(){
     background(200);
 
-
-    float dx = mouseX - x;
-    float dy = mouseY - y;
-
-
-    x += dx * 0.05;
-    y += dy * 0.05;
+    if(debug){
+        dx = mouseX - x;
+        dy = mouseY - y;
 
 
-    fill(100);
+        x += dx * 0.05;
+        y += dy * 0.05;
+    }
+/*
+ dx = mouseX - x;
+ dy = mouseY - y;
+
+
+ x += dx * 0.05;
+ y += dy * 0.05;
+*/
+
+ fill(100);
+    if(debug){
+        text("Debug mode is on",20,20);
+    }else{
+        text("Debug Mode is off",20,20);
+    }
     text("X:"+Math.floor(x)+"\nY:"+Math.floor(y),x + 30,y - 30);
 
     fill(r,g,b);
@@ -58,11 +91,14 @@ void draw(){
 
 window.addEventListener("keydown",function(e){
     if(e.keyCode === 77){
-        client.socket.send(JSON.stringify({
-
-        }))
+       if(debug){
+           debug = false;
+       }else if(!debug){
+           debug = true;
+       }
     }
 })
+
 
 
 window.addEventListener("mousemove",function(e){
