@@ -18,6 +18,7 @@
 		3C63A114189AE3D700C6DC3B /* ciCV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C63A112189AE3D700C6DC3B /* ciCV.cpp */; };
 		3C63A11E189B16A100C6DC3B /* PunchOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C63A11C189B16A100C6DC3B /* PunchOut.cpp */; };
 		3C63A122189C2D9100C6DC3B /* Sockets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C63A120189C2D9100C6DC3B /* Sockets.cpp */; };
+		3C7E855D18A1C40900E844F5 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C7E855B18A1C40900E844F5 /* Player.cpp */; };
 		4B73C90D9B94434E98773CC1 /* sha1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FC240C21BFF4C13B9D5382C /* sha1.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
@@ -55,6 +56,8 @@
 		3C63A11F189C2BDE00C6DC3B /* Sockets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Sockets.h; path = ../include/Sockets.h; sourceTree = "<group>"; };
 		3C63A120189C2D9100C6DC3B /* Sockets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sockets.cpp; path = ../src/Sockets.cpp; sourceTree = "<group>"; };
 		3C63A123189C315400C6DC3B /* PunchParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PunchParser.h; path = ../include/PunchParser.h; sourceTree = "<group>"; };
+		3C7E855B18A1C40900E844F5 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
+		3C7E855C18A1C40900E844F5 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		4795523A8167400AB6AFC55F /* WebSocketConnection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = WebSocketConnection.cpp; path = "../blocks/Cinder-WebSocketPP/src/WebSocketConnection.cpp"; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
@@ -121,6 +124,8 @@
 				3C63A11B189B167300C6DC3B /* PunchOut.h */,
 				3C63A11C189B16A100C6DC3B /* PunchOut.cpp */,
 				3C63A123189C315400C6DC3B /* PunchParser.h */,
+				3C7E855B18A1C40900E844F5 /* Player.cpp */,
+				3C7E855C18A1C40900E844F5 /* Player.h */,
 			);
 			name = Files;
 			sourceTree = "<group>";
@@ -396,6 +401,7 @@
 				E27C2BBCE474419CBAE38249 /* WebSocketClient.cpp in Sources */,
 				3C63A122189C2D9100C6DC3B /* Sockets.cpp in Sources */,
 				34F81F0A3C234CC8ABE1BB22 /* WebSocketConnection.cpp in Sources */,
+				3C7E855D18A1C40900E844F5 /* Player.cpp in Sources */,
 				3C63A10C189AE16500C6DC3B /* LeapApp.cpp in Sources */,
 				A294E2E6579244BC8FE64C33 /* WebSocketServer.cpp in Sources */,
 				3C63A114189AE3D700C6DC3B /* ciCV.cpp in Sources */,

@@ -3,7 +3,7 @@ PunchOutServer/node_modules/
 .DS_Store
 LeapSDK/
 xcode/build/
-
+blocks/
 # Compiled Object files
 *.slo
 *.lo
