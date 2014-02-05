@@ -52,6 +52,15 @@ void PunchOut::onMessage(std::string msg){
     if(type == "id"){
         _id = stof(PunchParser::parseID(msg));
     }
+    
+    /**
+     If we're getting data back from
+     the server and it happens we need to 
+     update the opponent's position
+     */
+    if(type == "opponentupdate"){
+        
+    }
 }
 
 

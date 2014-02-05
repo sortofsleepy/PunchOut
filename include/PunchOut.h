@@ -32,6 +32,9 @@ class PunchOut : public LeapApp{
     //Socket connection
     Sockets * client;
 
+    /** Enemy position */
+    ci::Vec3f epos;
+    
     
 public:
     ci::Vec3f headpos;
